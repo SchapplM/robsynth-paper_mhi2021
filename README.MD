@@ -55,6 +55,10 @@ The structures are **discussed in Sec. 4** of the paper.
 The numbers given there are obtained by `number_possible_structures.m`.  
 The structural synthesis does not have to be performed again, as the the strctures are already included in the parallel robots database. The synthesis can be run again with `structsynth_3T0R_PRRRR_novariants.m` for structures containing only prismatic and revolute joints and `structsynth_3T0R_PRRRR_variants.m` for structures containing universal joints.
 
+### Setting Up Cluster Computation
+
+The structural and dimensional synthesis both work well on standard desktop computers and the results can be reproduced there. However, the approach benefits from massive parallel computation on a computing cluster. If a cluster is not available, the corresponding options in the dimensional synthesis have to be deactivated with `Set.general.computing_cluster = false`. If the cluster is available, the tool `matlab_pbs_transfer` has to be used. This requires a cluster running [PBS](https://en.wikipedia.org/wiki/Portable_Batch_System), like the [cluster of the Leibniz University Hannover](https://www.luis.uni-hannover.de/en/services/computing/scientific-computing/).
+
 ### Debug Properties of the Results <a name="debug">
 
 * `compare_G1G4.m`: Check how the vertical alignment (G1) and conical alignment (G4) can be transferred
@@ -81,8 +85,10 @@ For the optimization and the figure generation to work, the following steps have
     * https://github.com/SchapplM/robotics-dep-geometry (tested with rev. 53aa6d12; 2020-09-13)
     * https://github.com/SchapplM/robotics-dep-traj (tested with rev. 41ceefd4; 2020-02-15)
     * https://github.com/SchapplM/robotics-dep-ext (tested with rev. d85bdea;2021-01-24)
+    * https://github.com/SchapplM/matlab_pbs_transfer (tested with rev. 635ecd8; 2021-01-26)
 5. Set up the toolboxes to work and modify the following files according to the instructions
     * robsynth-serroblib/maplerepo_path.m.template (has to link to robsynth-modelgen)
     * robsynth-modelgen/robotics_repo_path.template (has to link to robsynth-robotics_toolbox)
+    * robsynth-structdimsynt/computingcluster_repo_path.m.template (has to link to matlab_pbs_transfer)
 6. Run the path initialization scripts (`..._path_init.m`) of all downloaded software repos in Matlab. Put the run commands in the startup.m file of Matlab for easier use.
 
