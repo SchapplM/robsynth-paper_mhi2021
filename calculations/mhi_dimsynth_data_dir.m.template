@@ -1,0 +1,29 @@
+% Gebe den Ordner der Messdaten zurück
+% 
+% Anpassung durch Benutzer: Variable `offline` im Quelltext:
+%   1: Offline-Auswertung bestehender Versuche (mit manueller Angabe des
+%      Ordners
+%   0: Online-Auswertung (Versuche liegen im Ordner der Maßsynthese); sinn-
+%      voll, falls die Versuche auf diesem Rechner durchgeführt wurden.
+
+% Moritz Schappler, moritz.schappler@imes.uni-hannover.de, 2020-09
+% (C) Institut für Mechatronische Systeme, Leibniz Universität Hannover
+
+function datadir = mhi_dimsynth_data_dir(offline)
+offline = true;
+if ~offline
+  % Annahme: Maßsynthese wurde erneut durchgeführt, Daten liegen im
+  % Maßsynthese-Ergebnisordner des Repos
+  dimsynthpath = fileparts(which('structgeomsynth_path_init.m'));
+  datadir = fullfile(dimsynthpath, 'dimsynth', 'results');
+else
+  % Annahme: Reproduktion der Bilder aus den für die Publikation
+  % gespeicherten Ergebnissen
+  % TODO: Dieser Pfad muss an den aktuellen Rechner angepasst werden.
+  % Linux:
+  datadir = ['/home/moritz/SeaDrive/Für mich freigegeben/imes-projekt-', ...
+    'dfg_robotersynthese/06_Publikationen/2021_MHI_KryoPKM/Simulationsdaten'];
+  % Windows:
+  datadir = ['P:\Für mich freigegeben\imes-projekt-dfg_robotersynthese\', ...
+    '06_Publikationen\2021_MHI_KryoPKM\Simulationsdaten'];
+end

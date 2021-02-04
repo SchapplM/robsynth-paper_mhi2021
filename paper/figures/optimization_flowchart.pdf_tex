@@ -1,0 +1,134 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'optimization_flowchart.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{345.82677165bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.57377049)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{optimization_flowchart.pdf}}%
+    \put(0.01311575,0.50611662){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Requirements,\end{tabular}}}}%
+    \put(0.27340578,0.50611662){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}PSO: parameter variation,\end{tabular}}}}%
+    \put(0.27470168,0.47302845){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}stopping criteria, Pareto\end{tabular}}}}%
+    \put(0.0171653,0.3076918){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}geometry\end{tabular}}}}%
+    \put(0.01931336,0.27877558){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}plausible?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{optimization_flowchart.pdf}}%
+    \put(0.34515796,0.31135744){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}joint limits\end{tabular}}}}%
+    \put(0.35193258,0.28042725){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}complied?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{optimization_flowchart.pdf}}%
+    \put(0.14173107,0.30715159){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.01394193,0.47302845){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}initialisation\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{optimization_flowchart.pdf}}%
+    \put(0.53818767,0.28667332){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}collision\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{optimization_flowchart.pdf}}%
+    \put(0.66795717,0.50611662){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}fitness fcn.: model update, \end{tabular}}}}%
+    \put(0.66795717,0.47302845){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}constraints, objective fcn.\end{tabular}}}}%
+    \put(0.61325462,0.4669648){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}$\bm{p}$\end{tabular}}}}%
+    \put(0.33249906,0.55983569){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}$\bm{f}(\bm{p})$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{optimization_flowchart.pdf}}%
+    \put(0.19256288,0.31254529){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}IK for\end{tabular}}}}%
+    \put(0.19178834,0.2745929){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}ref. pts.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{optimization_flowchart.pdf}}%
+    \put(0.55811551,0.25440266){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}free?\end{tabular}}}}%
+    \put(0.56121369,0.3176052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}self-\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{optimization_flowchart.pdf}}%
+    \put(0.70315101,0.31135744){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}in install-\end{tabular}}}}%
+    \put(0.68823848,0.26942864){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}ation space?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{optimization_flowchart.pdf}}%
+    \put(0.14946057,0.38432259){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}repeat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{optimization_flowchart.pdf}}%
+    \put(0.82582792,0.08720113){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}trajectory IK\end{tabular}}}}%
+    \put(0.82562552,0.05299726){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}for init. value\end{tabular}}}}%
+    \put(0.34768421,0.20272){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}repeat for all IK configurations (init. values)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{optimization_flowchart.pdf}}%
+    \put(0.14529651,0.35580157){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}initial\end{tabular}}}}%
+    \put(0.65621462,0.1084345){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}kinematic\end{tabular}}}}%
+    \put(0.64953233,0.07428555){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}constraints\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{optimization_flowchart.pdf}}%
+    \put(0.45968915,0.08720113){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}inverse\end{tabular}}}}%
+    \put(0.45023977,0.05299726){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}dynamics\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{optimization_flowchart.pdf}}%
+    \put(0.30608972,0.0988008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}force\end{tabular}}}}%
+    \put(0.28205772,0.05597727){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}limits ok?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{optimization_flowchart.pdf}}%
+    \put(0.02160853,0.09940962){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}return best\end{tabular}}}}%
+    \put(0.02510739,0.02242006){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}jective $\bm{f}(\bm{p})$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{optimization_flowchart.pdf}}%
+    \put(0.02250493,0.05921142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}feasible ob-\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{optimization_flowchart.pdf}}%
+    \put(0.03211143,0.38883496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Start\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{optimization_flowchart.pdf}}%
+    \put(0.88844141,0.31906909){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}all init.\end{tabular}}}}%
+    \put(0.89266906,0.28673121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}values\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{optimization_flowchart.pdf}}%
+    \put(0.07979407,0.21401371){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.48376857,0.30637701){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.64983017,0.30637701){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.83231211,0.30637701){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.93888898,0.20165908){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.42419389,0.37585415){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.59536758,0.37585415){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.76886481,0.37585415){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.34435595,0.1623134){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.72058856,0.1623134){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0.68856922,0.03958624){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}ok?\end{tabular}}}}%
+    \put(0.21232444,0.05218823){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.57274686,0.05218823){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{yes}\end{tabular}}}}%
+    \put(0.23895039,0.38432259){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}for\end{tabular}}}}%
+    \put(0.2382926,0.35580157){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}values\end{tabular}}}}%
+    \put(0.89442302,0.25208173){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}done?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{optimization_flowchart.pdf}}%
+    \put(0.0173262,0.16101316){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}return penalty\end{tabular}}}}%
+    \put(0.93947782,0.37375151){\color[rgb]{0.58823529,0.58823529,0.58823529}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\small{no}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{optimization_flowchart.pdf}}%
+    \put(0.39689818,0.15180883){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}design optimization\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{optimization_flowchart.pdf}}%
+  \end{picture}%
+\endgroup%
