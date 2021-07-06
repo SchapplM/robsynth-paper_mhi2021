@@ -8,13 +8,17 @@ clear
 
 
 %% Lade Roboterdefinition (aus anderem Versuch, zur Vereinfachung)
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 resdirtotal = mhi_dimsynth_data_dir();
 OptName = 'cryopkm_20210117_bisheuteabend2_ps11';
 LfdNr = 12;
 RobName = 'P3PRRRR8V1G1P2A1';
 setfile = dir(fullfile(resdirtotal, OptName, '*settings.mat'));
 d1 = load(fullfile(resdirtotal, OptName, setfile(1).name));
-Set_i = d1.Set;
+Set_i = cds_settings_update(d1.Set);
 resfile = fullfile(resdirtotal, OptName, sprintf('Rob%d_%s_Endergebnis.mat', ...
   LfdNr, RobName));
 tmp = load(resfile);
@@ -47,8 +51,7 @@ Set.general.plot_robot_in_fitness = 1e11;
 Set.general.save_robot_details_plot_fitness_file_extensions = {};
 cds_log(0, '', 'init', Set);
 clear cds_save_particle_details cds_fitness
-[fval, physval, Q] = cds_fitness(R, Set,d1.Traj, ...
-  Structure, pval);
+[fval, physval, Q] = cds_fitness(R, Set,d1.Traj, Structure, pval);
 PSO_Detail_Data_tmp = cds_save_particle_details(Set, R, 0, 0, NaN, NaN, NaN, NaN, 'output');
 
 %% Validiere die Ergebnisse

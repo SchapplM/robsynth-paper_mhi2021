@@ -8,6 +8,10 @@ clear
 
 %% Definitionen
 outputdir = fileparts(which('results_stack_tables.m'));
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 resdirtotal = mhi_dimsynth_data_dir();
 
 %% Öffnen der Ergebnis-Tabelle

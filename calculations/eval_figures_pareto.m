@@ -13,7 +13,12 @@ clc
 clear
 
 %% Initialisierung
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 resdirtotal = mhi_dimsynth_data_dir();
+
 outputdir = fileparts(which('eval_figures_pareto.m'));
 
 ps = 11; % Auch andere Kombinationen von Kriterien möglich

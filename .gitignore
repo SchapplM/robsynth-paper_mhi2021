@@ -27,6 +27,8 @@
 *.idx
 *.pdfsync
 *~
+*.asv
 Thumbs.db
 *.sav
 *.orig
+mhi_dimsynth_data_dir.m

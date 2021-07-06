@@ -1,4 +1,7 @@
 % Wandle die Namen der Roboter in ein lesbares Format um
+% Berechne dazu die Fitness-Funktion einmalig um Gelenkwinkel für die
+% Referenzpunkte zu bestimmen. Dadurch wird die Parallelität der Gelenke
+% geprüft.
 % 
 % Vorher ausführen:
 % * eval_figures_pareto.m
@@ -19,6 +22,10 @@ clear
 %% Definitionen
 outputdir = fileparts(which('robot_names.m'));
 datadir = fullfile(outputdir,'..','data');
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 resdirtotal = mhi_dimsynth_data_dir();
 serroblibpath=fileparts(which('serroblib_path_init.m'));
 %% Öffnen der Ergebnis-Tabelle
@@ -42,12 +49,25 @@ for i = 1:length(Robots)
   LfdNr = ResTab.LfdNr(j);
   setfile = dir(fullfile(resdirtotal, OptName, '*settings.mat'));
   d1 = load(fullfile(resdirtotal, OptName, setfile(1).name));
-  Set = d1.Set;
-  resfile = fullfile(resdirtotal, OptName, sprintf('Rob%d_%s_Endergebnis.mat', LfdNr, RobName));
+  Set = cds_settings_update(d1.Set);
+  resfile = fullfile(resdirtotal, OptName, ...
+    sprintf('Rob%d_%s_Endergebnis.mat', LfdNr, RobName));
   tmp = load(resfile);
+  resfile_details = fullfile(resdirtotal, OptName, ...
+    sprintf('Rob%d_%s_Details.mat', LfdNr, RobName));
+  tmp2 = load(resfile_details);
+  if isfield(tmp2.RobotOptDetails, 'q0') % altes Format
+    q0 = tmp2.RobotOptDetails.q0;
+  else % neues Format (nach Paper-Einreichung)
+    q0 = tmp.RobotOptRes.q0;
+  end
 %   R = tmp.RobotOptRes.R;
   PName = tmp.RobotOptRes.Structure.Name;
   [~,LEG_Names] = parroblib_load_robot(PName);
+  % Debug:
+%   serroblib_create_template_functions(LEG_Names(1),false);
+%   parroblib_create_template_functions({PName},false);
+%   matlabfcn2mex({[PName(1:end-6),'_invkin']}); % einige Dateien werden hiermit doppelt kompiliert
 %   Chain_Name = tmp.RobotOptRes.R.Leg(1).mdlname_var;
   Chain_Name = LEG_Names{1};
   NLegJ = str2double(Chain_Name(2));
@@ -62,6 +82,10 @@ for i = 1:length(Robots)
   [R, Structure] = cds_dimsynth_robot(Set, d1.Traj, d1.Structures{LfdNr}, true);
   % Parameter des Ergebnisses eintragen (für fkine-Berechnung unten)
   cds_update_robot_parameters(R, Set, Structure, tmp.RobotOptRes.p_val);
+  % Gelenkwinkel des Startwerts für IK eintragen
+  for kk = 1:R.NLEG
+    R.Leg(kk).qref = q0(R.I1J_LEG(kk):R.I2J_LEG(kk));
+  end
   % Fitness-Funktion nachrechnen um Gelenk-Trajektorie zu bestimmen. Ändere
   % die Einstellungen, so dass keine Dynamik berechnet wird (geht schneller).
   clear cds_save_particle_details cds_fitness
@@ -71,14 +95,28 @@ for i = 1:length(Robots)
   Structure_tmp.calc_spring_act = false;
   Structure_tmp.calc_spring_reg = false;
   Structure_tmp.calc_dyn_reg = false;
+  % Erzwinge Prüfung dieses Anfangswerts für Trajektorie (falls IK anderes
+  % Ergebnis hat). Diese Option sollte nicht notwendig sein. Wird zur
+  % Sicherheit trotzdem gemacht.
+  Structure_tmp.q0_traj = q0;
   Set.optimization.objective = {'condition'};
   Set.optimization.constraint_obj(:) = 0;
   Set.optimization.desopt_vars = {};
   Set.optimization.joint_stiffness_passive_revolute = 0;
+  % Debug: Bei Verletzung von Zielfunktionen Bilder zeichnen
+  % Set.general.plot_details_in_fitness = -1e3;
   [fval_i_test, ~, Q] = cds_fitness(R, Set,d1.Traj, ...
     Structure_tmp, tmp.RobotOptRes.p_val, tmp.RobotOptRes.desopt_pval);
   if any(fval_i_test > 1e3)
-    error('Die Nebenbedingungen wurden bei erneuter Prüfung verletzt');
+    % Eigentlich darf dieser Fall nicht vorkommen. Ist aber aus numerischen
+    % Gründen leider doch manchmal möglich.
+    warning('Die Nebenbedingungen wurden bei erneuter Prüfung verletzt');
+    if any(fval_i_test > 1e11) || ... % siehe cds_constraints.
+        any(fval_i_test < 1e9) && any(fval_i_test > 1e4) % siehe cds_constraints_traj.
+      % Versuche nochmal neu, die Fitness-Funktion zu berechnen
+      error(['Keine gültige Gelenkwinkel berechnet. Parallelität der ', ...
+        'Gelenke und damit Name nicht bestimmbar.'])
+    end
   end
   %% Parallelität der Gelenke anzeigen (anhand der Trajektorie).
   % Direkte Kinematik für alle Zeitschritte berechnen

@@ -18,6 +18,10 @@ recalc_fitnessfcn = true; % Neuberechnung der Fitness-Funktion (optional)
 posacc_sel = 40e-6;
 regenerate_templates = false; %#ok<*UNRCH> % nur bei erstem Aufruf notwendig.
 %% Sonstige Initialisierung
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 importdir = mhi_dimsynth_data_dir();
 datadir = fullfile(fileparts(which('select_eval_robot_examples.m')),'..','data');
 tmp = load(fullfile(datadir, 'results_all_reps_pareto.mat'));
@@ -53,7 +57,7 @@ for i = 1:size(RobotGroups,1)
   fprintf('Wähle Opt. %s, Rob. %d, %s, Partikel %d\n', OptName, LfdNr, RobName, Ipar);
   setfile = dir(fullfile(importdir, OptName, '*settings.mat'));
   d1 = load(fullfile(importdir, OptName, setfile(1).name));
-  Set_i = d1.Set;
+  Set_i = cds_settings_update(d1.Set);
   resfile = fullfile(importdir, OptName, sprintf('Rob%d_%s_Endergebnis.mat', LfdNr, RobName));
   tmp = load(resfile);
   RobotOptRes_i = tmp.RobotOptRes;
@@ -114,7 +118,7 @@ for i = 1:size(RobotGroups,1)
       end
     end
     [k_ind,k_gen] = ind2sub(fliplr(size(PSO_Detail_Data_i.comptime)),k);
-    physval = PSO_Detail_Data_i.physval(k_ind,:,k_gen);
+    physval = PSO_Detail_Data_i.physval(k_ind,:,k_gen)';
     if abs(physval(kk1)-data_i.pt_i.PosAcc(inearest))>1e-10
       error('Gesuchter Wert konnte nicht gefunden werden. Logik-Fehler');
     end
@@ -157,11 +161,15 @@ for i = 1:size(RobotGroups,1)
     end
   end
   % Funktionsaufruf siehe cds_check_results_reproducability.m
-  Structure_tmp = RobotOptRes_i.Structure;
+  Structure_tmp = Structure;
   Structure_tmp.calc_dyn_act = Structure.calc_dyn_act | Structure.calc_dyn_reg;
   Structure_tmp.calc_spring_act = Structure.calc_spring_act | Structure.calc_spring_reg;
   Structure_tmp.calc_spring_reg = false;
   Structure_tmp.calc_dyn_reg = false;
+  % Erzwinge Prüfung dieses Anfangswerts für Trajektorie (falls IK anderes
+  % Ergebnis hat). Diese Option sollte nicht notwendig sein. Ist sie leider
+  % teilweise.
+  Structure_tmp.q0_traj = q0;
   clear cds_save_particle_details cds_fitness
   [fval_i_test, physval_i_test, Q] = cds_fitness(R, Set,d1.Traj, ...
     Structure_tmp, pval, pval_desopt);
@@ -174,10 +182,11 @@ for i = 1:size(RobotGroups,1)
   q0_neu = PSO_Detail_Data_tmp.q0_ik(1,:,1)';
   test_fval = fval - fval_i_test;
   test_physval = physval - physval_i_test;
-  if abs(test_fval(kk1)) > 1e-10 % Durch geänderte Implementierung möglich
+  if abs(test_fval(kk1)) > 1e-6 % Durch geänderte Implementierung möglich
     warning(['Die Antriebskraft hat einen anderen Wert beim neu nachrechnen ', ...
-      '(%1.1f vs %1.1f). Physikalischer Wert: %1.4f vs %1.4f. IK hat anderes Ergebnis!'], ...
-      fval_i_test(kk1), fval(kk1), physval_i_test(kk1), physval(kk1));
+      '(%1.1f vs %1.1f; Diff %1.1e). Physikalischer Wert: %1.4f vs %1.4f ', ...
+      '(Diff %1.1e). IK hat anderes Ergebnis!'], fval_i_test(kk1), fval(kk1), ...
+      test_fval(kk1), physval_i_test(kk1), physval(kk1), test_physval(kk1));
     if abs(test_physval(kk1)) > 5 % 5N wird noch für das Bild toleriert (Annahme: Auf Cluster war es richtig)
       error('Der Fehler ist zu groß. Das lässt sich nicht mehr mit Zufallszahlen-Toleranz erklären');
     end
@@ -316,6 +325,9 @@ for i = 1:size(RobotGroups,1)
   use_old_parameters = false;
   if fval_i_neu < 1e3 % weiterhin i.O.
     qoff_neu = R.Leg(1).DesPar.joint_offset(1);
+    if qoff_neu == 0 && pval_desopt(Structure_tmp.desopt_ptypes==1) ~= 0
+      warning('Der Gelenk-Offset ist bei Neuberechnung Null, obwohl er vorher ungleich Null war');
+    end
     [~,~,~,mass_neu] = cds_obj_mass(R);
     % Prüfe, wie groß der entstandene Fehler ist
     delta_acc = physval_i_neu(1) - physval_i_test(1);
@@ -354,6 +366,7 @@ for i = 1:size(RobotGroups,1)
       plot(Traj_0.t, Q_neu(:,jj));
       title(sprintf('q %d (%s), L%d,J%d', i, RP(R.MDH.sigma(jj)+1), legnum, legjointnum));
     end
+    legend({'Fitness-Funktion', 'Nach Parameteranpassung'});
     linkxaxes
   else
     Q = Q_neu;

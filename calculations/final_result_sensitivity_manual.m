@@ -10,6 +10,10 @@
 posacc_sel = 40e-6;
 regenerate_templates = false; %#ok<*UNRCH> % nur bei erstem Aufruf notwendig.
 %% Sonstige Initialisierung
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 importdir = mhi_dimsynth_data_dir();
 datadir = fullfile(fileparts(which('select_eval_robot_examples.m')),'..','data');
 tmp = load(fullfile(datadir, 'results_all_reps_pareto.mat'));
@@ -38,7 +42,7 @@ for i = 5%:size(RobotGroups,1)
   fprintf('Wähle Opt. %s, Rob. %d, %s, Partikel %d\n', OptName, LfdNr, RobName, Ipar);
   setfile = dir(fullfile(importdir, OptName, '*settings.mat'));
   d1 = load(fullfile(importdir, OptName, setfile(1).name));
-  Set_i = d1.Set;
+  Set_i = cds_settings_update(d1.Set);
   resfile = fullfile(importdir, OptName, sprintf('Rob%d_%s_Endergebnis.mat', LfdNr, RobName));
   tmp = load(resfile);
   RobotOptRes_i = tmp.RobotOptRes;
@@ -97,7 +101,7 @@ for i = 5%:size(RobotGroups,1)
   Set.general.save_robot_details_plot_fitness_file_extensions = {};
   Set.general.verbosity = 4;
   cds_log(0, '', 'init', Set);
-  Structure_tmp = RobotOptRes_i.Structure;
+  Structure_tmp = Structure;
   Structure_tmp.calc_dyn_act = Structure.calc_dyn_act | Structure.calc_dyn_reg;
   Structure_tmp.calc_spring_act = Structure.calc_spring_act | Structure.calc_spring_reg;
   Structure_tmp.calc_spring_reg = false;

@@ -105,10 +105,13 @@ for i = 1:size(RobotGroups,1)
     tmp = load(resfile);
     RobotOptRes_j = tmp.RobotOptRes;
     
-    % Stelle alle Daten zur Pareto-Front zusammen
-    fval_pareto = RobotOptRes_j.fval_pareto;
-    p_val_pareto = RobotOptRes_j.p_val_pareto;
-    physval_pareto = RobotOptRes_j.physval_pareto;
+    % Stelle alle Daten zur Pareto-Front zusammen. Vermeide NaN-Werte, die
+    % auftreten, wenn die Nebenbedingungen verletzt werden und dies trotz-
+    % dem Teil der Pareto-Front wird.
+    I_notnan = all(~isnan(RobotOptRes_j.physval_pareto),2);
+    fval_pareto = RobotOptRes_j.fval_pareto(I_notnan,:);
+    p_val_pareto = RobotOptRes_j.p_val_pareto(I_notnan,:);
+    physval_pareto = RobotOptRes_j.physval_pareto(I_notnan,:);
     % Lade die Detail-Ergebnisse mit allen Zwischenwerten
     resfile2 = fullfile(resdirtotal, OptName, sprintf('Rob%d_%s_Details.mat', LfdNr, RobName));
     if exist(resfile2, 'file')
@@ -207,7 +210,7 @@ for i = 1:size(RobotGroups,1)
     for k = 1:size(PSO_Detail_Data_j.pval, 3)
       I_notnan = all(~isnan(PSO_Detail_Data_j.physval(:,:,k)),2);
       % Neue Menge an Partikeln erzeugen (diese Generation dazu).
-      fval_pareto = [fval_pareto; PSO_Detail_Data_j.fval(I_notnan,:,k)];
+      fval_pareto = [fval_pareto; PSO_Detail_Data_j.fval(I_notnan,:,k)]; %#ok<AGROW>
       p_val_pareto = [p_val_pareto; PSO_Detail_Data_j.pval(I_notnan,:,k)]; %#ok<AGROW>
       physval_pareto = [physval_pareto; PSO_Detail_Data_j.physval(I_notnan,:,k)]; %#ok<AGROW>
       % Steigungsparameter (für spätere Auswertung und Auswahl)
@@ -254,14 +257,14 @@ for i = 1:size(RobotGroups,1)
     end
     pf_data = [pf_data; physval_pareto(:,[kk1,kk2])]; %#ok<AGROW>
     row_i = cell(size(physval_pareto,1),7);
-    row_i(:,1:3) = repmat({OptName,RobName,LfdNr},size(physval_pareto(:,:),1),1);
+    row_i(:,1:3) = repmat({OptName,RobName,LfdNr},size(row_i,1),1);
     for k = 1:length(alpha_pareto)
       row_i{k,4} = k;
       row_i{k,5} = physval_pareto(k,kk2); % Antriebskraft
       row_i{k,6} = physval_pareto(k,kk1); % Positionsfehler
       row_i{k,7} = alpha_pareto(k);
+      assert(all(~isnan(physval_pareto(k,:))), 'physval_pareto ist NaN.');
     end
-    
     pt_i = [pt_i; row_i]; %#ok<AGROW>
     numrep_i = numrep_i + 1;
   end

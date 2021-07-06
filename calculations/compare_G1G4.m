@@ -18,7 +18,10 @@ pareto_settings = {'positionerror','jointrange'};
 
 obj_units = {'µm', 'deg'};
 objscale = [1e6, 180/pi];
-
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 importdir = mhi_dimsynth_data_dir();
 outputdir = fileparts(which('compare_G1G4.m'));
 datadir = fullfile(outputdir,'..','data');
@@ -94,7 +97,8 @@ for i = length(Robots):-1:1 % Fange mit G4 an, dann erst G1
         clear cds_save_particle_details cds_fitness cds_log
         Set = Res.Set; Set.general.verbosity = 0;
         cds_log(0, '', 'init', Set);
-        fitnessfcnG1 = @(p)cds_fitness(Res.RobotOptRes.R,Set,Res.Traj,Res.RobotOptRes.Structure,p(:));
+        fitnessfcnG1 = @(p)cds_fitness(Res.RobotOptRes.R, Set ,Res.Traj, ...
+          Res.RobotOptRes.Structure,p(:));
         fval_G1_test = fitnessfcnG1(p_G1);
         clear cds_save_particle_details cds_fitness cds_log
         Set = ResG4.Set; Set.general.verbosity = 0;

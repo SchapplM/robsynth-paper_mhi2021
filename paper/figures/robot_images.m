@@ -190,7 +190,7 @@ for i = 1:size(RobotGroups,1)
     end
     % Weise den Beinketten neue Farben zu
     for kk = 1:3
-      if contains(get(ch(jj), 'DisplayName'), sprintf('Leg_%d', kk))
+      if contains(get(ch(jj), 'DisplayName'), sprintf('Leg_%d_Link', kk))
         set(ch(jj), 'EdgeColor', LegColors(kk,:));
       end
     end 

@@ -10,6 +10,10 @@
 clc
 clear
 
+if isempty(which('mhi_dimsynth_data_dir'))
+  error(['You have to create a file mhi_dimsynth_data_dir pointing to the ', ...
+    'directory containing the results of the dimensional synthesis']);
+end
 importdir = mhi_dimsynth_data_dir();
 %% Definitionen
 outputdir = fileparts(which('eval_results_G4_parameters.m'));
