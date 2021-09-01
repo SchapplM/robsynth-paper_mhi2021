@@ -100,7 +100,7 @@ for k = 1:num_repetitions
     Set.optimization.optname = sprintf('%s_rep%d', optname, k);
   end
   if ~merge_results_only
-    cds_start
+    cds_start(Set, Traj);
     pause(30); % Damit nicht alle exakt zeitgleich starten; paralleler Start des parpools nicht möglich
   else
     cds_merge_results( Set.optimization.optname, 'copy', true, true );

@@ -150,7 +150,7 @@ for ps = 11 %[1 2 11 12 13] % Pareto-Kombinationen
       Set.optimization.optname = sprintf('%s_ps%d_rep%d', optname, ps, k);
     end
     if ~merge_results_only
-      cds_start
+      cds_start(Set, Traj);
       pause(30); % Damit nicht alle exakt zeitgleich starten; paralleler Start des parpools nicht möglich
     else
       cds_merge_results( Set.optimization.optname, 'copy', true, true );
@@ -169,4 +169,4 @@ Set.general.eval_figures = {'pareto_all_phys'};
 Set.general.animation_styles = {};
 Set.general.parcomp_plot = false;
 Set.optimization.optname = 'cryopkm_20210108_ps11_p2'; % Beispiel zum Neu-Erstellen
-cds_start
+cds_start(Set, Traj);
