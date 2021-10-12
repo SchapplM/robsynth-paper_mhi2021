@@ -101,12 +101,14 @@ for i = 1:length(Robots)
   Structure_tmp.q0_traj = q0;
   Set.optimization.objective = {'condition'};
   Set.optimization.constraint_obj(:) = 0;
-  Set.optimization.desopt_vars = {};
+  Set.optimization.desopt_vars = {}; % keine Entwurfsoptimierung, hier nur Kinematik.
   Set.optimization.joint_stiffness_passive_revolute = 0;
   % Debug: Bei Verletzung von Zielfunktionen Bilder zeichnen
   % Set.general.plot_details_in_fitness = -1e3;
+  % Keine Eingabe von Ergebnissen von Entwufsoptimierung.
+  % Schubgelenk-Offsets hier neu berechnen (falls Konfiguration umklappt)
   [fval_i_test, ~, Q] = cds_fitness(R, Set,d1.Traj, ...
-    Structure_tmp, tmp.RobotOptRes.p_val, tmp.RobotOptRes.desopt_pval);
+    Structure_tmp, tmp.RobotOptRes.p_val);
   if any(fval_i_test > 1e3)
     % Eigentlich darf dieser Fall nicht vorkommen. Ist aber aus numerischen
     % Gründen leider doch manchmal möglich.
