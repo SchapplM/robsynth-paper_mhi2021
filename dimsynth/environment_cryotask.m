@@ -90,6 +90,8 @@ Set.structures.mounting_parallel = 'ceiling';
 % Annahme: Gegenmoment von 1.4Nm bei Auslenkung von 27.5°. Entspricht
 % favorisiertem Prototypen für das Festkörpergelenk.
 Set.optimization.joint_stiffness_passive_revolute = 1.4/(pi/180*27.5);
+Set.optimization.joint_stiffness_passive_universal = ...
+  Set.optimization.joint_stiffness_passive_revolute;
 % Die Festkörpergelenke begrenzen die möglichen Drehwinkel
 Set.optimization.max_range_passive_revolute = 55*pi/180;
 % Kollisionsprüfung ist notwendig.
