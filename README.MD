@@ -7,15 +7,17 @@ Moritz Schappler, Philipp Jahn, Annika Raatz, and Tobias Ortmaier
 This code is supplemental material to the following submission to the MHI Colloquium 2021:
 
 ```bib
-@InProceedings{SchapplerJahRaaOrt2021,
+@InProceedings{SchapplerJahRaaOrt2022,
   author    = {Schappler, Moritz and Jahn, Philipp and Raatz, Annika and Ortmaier, Tobias},
-  booktitle = {Annals of Scientific Society for Assembly, Handling and Industrial Robotics},
+  editor    = {Schüppstuhl, Thorsten and Tracht, Kirsten and Henrich, Dominik},
+  booktitle = {Annals of Scientific Society for Assembly, Handling and Industrial Robotics 2021},
   title     = {Combined Structural and Dimensional Synthesis of a Parallel Robot for Cryogenic Handling Tasks},
-  year      = {2021},
-  address   = {Berlin, Heidelberg},
-  publisher = {Springer Berlin Heidelberg},
+  year      = {2022},
+  address   = {Cham},
+  publisher = {Springer International Publishing},
+  isbn      = {978-3-030-74032-0},
+  doi       = {10.1007/978-3-030-74032-0_6},
 }
-
 ```
 
 
