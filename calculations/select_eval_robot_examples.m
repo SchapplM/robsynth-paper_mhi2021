@@ -145,6 +145,8 @@ for i = 1:size(RobotGroups,1)
     parroblib_create_template_functions({RobName}, false); % Für Erstellung fehlender Dateien
     R_test = parroblib_create_robot_class(RobName, 1, 1);
     R_test.fill_fcn_handles(true, true); % Zur Kompilierung fehlender Funktionen zum Nachrechnen der Fitness-Funktion
+  else
+    parroblib_update_template_functions({RobName});
   end
   [R, Structure] = cds_dimsynth_robot(Set_i, d1.Traj, d1.Structures{LfdNr}, true);
   % Fitness-Funktion neu definieren (mit weniger Log-Ausgaben)

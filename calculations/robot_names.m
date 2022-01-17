@@ -67,6 +67,7 @@ for i = 1:length(Robots)
   % Debug:
 %   serroblib_create_template_functions(LEG_Names(1),false);
 %   parroblib_create_template_functions({PName},false);
+  parroblib_update_template_functions({PName});
 %   matlabfcn2mex({[PName(1:end-6),'_invkin']}); % einige Dateien werden hiermit doppelt kompiliert
 %   Chain_Name = tmp.RobotOptRes.R.Leg(1).mdlname_var;
   Chain_Name = LEG_Names{1};
