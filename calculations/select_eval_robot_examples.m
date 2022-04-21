@@ -149,6 +149,8 @@ for i = 1:size(RobotGroups,1)
     parroblib_update_template_functions({RobName});
   end
   [R, Structure] = cds_dimsynth_robot(Set_i, d1.Traj, d1.Structures{LfdNr}, true);
+  pval = cds_parameters_update(RobotOptRes_i.Structure, ...
+    Structure, pval); % Für Aktualisierung des Programms mit neuen Parametern
   % Fitness-Funktion neu definieren (mit weniger Log-Ausgaben)
   Set = Set_i;
   kk1 = strcmp(Set.optimization.objective,'actforce');
@@ -173,7 +175,7 @@ for i = 1:size(RobotGroups,1)
   % teilweise.
   Structure_tmp.q0_traj = q0;
   clear cds_save_particle_details cds_fitness
-  [fval_i_test, physval_i_test, Q] = cds_fitness(R, Set,d1.Traj, ...
+  [fval_i_test, physval_i_test, Q] = cds_fitness(R, Set, d1.Traj, ...
     Structure_tmp, pval, pval_desopt);
   PSO_Detail_Data_tmp = cds_save_particle_details(Set, R, 0, 0, NaN, NaN, NaN, NaN, 'output');
   condJ = PSO_Detail_Data_tmp.constraint_obj_val(1, 4, 1);  

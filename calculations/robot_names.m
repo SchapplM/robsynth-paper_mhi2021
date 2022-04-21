@@ -81,8 +81,10 @@ for i = 1:length(Robots)
     {'1','2','3','4','5'}, {'R','P','C','U','S'}));
   %% Roboter-Klasse initialisieren
   [R, Structure] = cds_dimsynth_robot(Set, d1.Traj, d1.Structures{LfdNr}, true);
+  p_val = cds_parameters_update(tmp.RobotOptRes.Structure, ...
+    Structure, tmp.RobotOptRes.p_val);
   % Parameter des Ergebnisses eintragen (für fkine-Berechnung unten)
-  cds_update_robot_parameters(R, Set, Structure, tmp.RobotOptRes.p_val);
+  cds_update_robot_parameters(R, Set, Structure, p_val);
   % Gelenkwinkel des Startwerts für IK eintragen
   for kk = 1:R.NLEG
     R.Leg(kk).qref = q0(R.I1J_LEG(kk):R.I2J_LEG(kk));
@@ -109,7 +111,7 @@ for i = 1:length(Robots)
   % Keine Eingabe von Ergebnissen von Entwufsoptimierung.
   % Schubgelenk-Offsets hier neu berechnen (falls Konfiguration umklappt)
   [fval_i_test, ~, Q] = cds_fitness(R, Set,d1.Traj, ...
-    Structure_tmp, tmp.RobotOptRes.p_val);
+    Structure_tmp, p_val);
   if any(fval_i_test > 1e3)
     % Eigentlich darf dieser Fall nicht vorkommen. Ist aber aus numerischen
     % Gründen leider doch manchmal möglich.
